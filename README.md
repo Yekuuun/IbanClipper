@@ -13,3 +13,7 @@ A base POC of manipulating clipboard content &amp; replacing copied iban value b
 
 
 ![CLIPPER](https://github.com/Yekuuun/IbanClipper/blob/main/clipper.png)
+
+---
+
+This program was developped for learning purpose. If you want to use it for malicious reasons, i'm not responsible.
