@@ -9,7 +9,7 @@
                                 -------A base IBAN clipper in C++ ------    
 
 ```
-A base POC of manipulating clipboard content &amp; replacing copied iban values by yours.
+A base POC of manipulating clipboard content &amp; replacing copied iban value by yours.
 
 
 ![CLIPPER](https://github.com/Yekuuun/IbanClipper/blob/main/clipper.png)
